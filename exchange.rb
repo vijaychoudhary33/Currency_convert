@@ -1,61 +1,26 @@
 require 'money'
 require 'colorize'
 require 'colorized_string'
-
+require './xe'
+require_relative 'xe'
 
 # convert currency ffrom INR to Different 5 currency
-class Exchange
-    def initialize()
-        I18n.config.available_locales = :en
-        convert
-    end
-  
-    def convert
-      puts " Enter your currenty in INR value".colorize(:red)
-      @inr_amount = gets.to_i
-  
-      puts "Choose any one option\n 1: USD \n 2: Dinar \n 3: Pound \n 4: YEN \n 5: EUR"
-      target_amount = gets.to_i
-  
-      case target_amount
-      when 1
-        Money.add_rate('INR','USD',0.0122)
-        amount_usd = Money.from_amount(@inr_amount, "INR").exchange_to("USD")
-        puts "#{@inr_amount} INR is equal to #{amount_usd.format} USD"
-      
-      when 2
-        Money.add_rate('INR','IQD',0.0037)
-        amount_iqd = Money.from_amount(@inr_amount,'INR').exchange_to("IQD")
-        puts "#{@inr_amount} INR is equal to #{amount_iqd.format} IQD"
-      
-
-      when 3
-        Money.add_rate('INR','GBP',0.0098)
-        amount_gbp = Money.from_amount(@inr_amount,'INR').exchange_to("GBP")
-        puts "#{@inr_amount} INR is equal to #{amount_gbp.format} GBP"
-     
-  
-       
-      when 4
-        Money.add_rate('INR','JPY',1.634)
-        amount_jpy = Money.from_amount(@inr_amount,'INR').exchange_to("JPY")
-        puts "#{@inr_amount} INR is equal to #{amount_jpy.format} JPY"
-     
-  
-        
-      when 5
-        Money.add_rate('INR','EUR',0.0111)
-        amount_eur = Money.from_amount(@inr_amount,'INR').exchange_to("EUR")
-        puts "#{@inr_amount} INR is equal to #{amount_eur.format} EUR"
-    
-      else
-        puts "you enter the wrong number"  
-      end
-  
-
-    end
+ class Exchange
+  # include module 
+  include Xe
 end
-  
-  ## driver logic
-  ex = Exchange.new
-  ex.convert
+# take amount from user 
+puts " Enter the amount".colorize(:red)
+# store user inpute in amount
+amount=gets.to_i
+# show all currency code 
+puts "Enter the amount currency CODE  from following Currency Code \n Indian -> INR \n USA -> USD  \n Euro -> EUR  \n Japanes yen -> JPN \n British poundr -> GBD".colorize(:blue)
+# take currency code from user which enter the amount and store in current_curr
+current_curr = gets.chomp.upcase
+# take input from user, user want convert in which currrency of cuntry
+puts "Enter the currency which you want to convert in other Currency from following \n Indian -> INR \n USA -> USD \n Euro -> EUR \n Japanes yen -> JPy\n British pound -> GBD".colorize(:yellow)
+# store user input currency code in convert_curr and upcase 
+convert_curr = gets.chomp.upcase
+ex = Exchange.new
+ex.currency_convert(amount,current_curr,convert_curr)
+
