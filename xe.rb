@@ -1,4 +1,5 @@
 require 'money'
+require 'colorize'
 I18n.config.available_locales = :en
 module Xe
 # use Hash for store all Conversion rates for Country 
@@ -46,7 +47,7 @@ module Xe
     money=Money.from_amount(amount,current_curr)
     converted_money = money.exchange_to(convert_curr)
     # print the converted currency and amount
-    puts "your amounnt is here  #{converted_money.format}"
+    puts "your amounnt is here  #{converted_money.format}".colorize(:yellow)
   end
 
 end
