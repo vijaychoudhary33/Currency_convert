@@ -47,7 +47,8 @@ module Xe
     money=Money.from_amount(amount,current_curr)
     converted_money = money.exchange_to(convert_curr)
     # print the converted currency and amount
-    puts "your amounnt is here  #{converted_money.format}".colorize(:yellow)
+    puts "Your amounnt is here #{amount} #{current_curr} =  #{converted_money.format} #{convert_curr}".colorize(:yellow)
+  
   end
 
 end
